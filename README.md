@@ -69,7 +69,7 @@ Done!
 
 ## Implementations
 
-* [grf](https://github.com/KaiNorberg/grf) Hobbyist OS
+* [PatchworkOS](https://github.com/KaiNorberg/PatchworkOS) A non-POSIX hobbyist OS, shown in the above screenshot
 
 ## Format
 
