@@ -1,18 +1,50 @@
-# Grayscale Raster Font or .grf ![](https://img.shields.io/badge/License-MIT-green)
+# Grayscale Raster Font
 
-The Grayscale Raster Font format is designed to bring good-*ish* looking font rendering to hobbyist operating system developers or other environments where using modern font formats like .ttf is undesirable.
+<br>
+<div align="center">
+    <a href="https://github.com/KaiNorberg/grf/issues">
+      <img src="https://img.shields.io/github/issues/KaiNorberg/grf">
+    </a>
+    <a href="https://github.com/KaiNorberg/grf/network">
+      <img src="https://img.shields.io/github/forks/KaiNorberg/grf">
+    </a>
+    <a href="https://github.com/KaiNorberg/grf/stargazers">
+      <img src="https://img.shields.io/github/stars/KaiNorberg/grf">
+    </a>
+    <a href="https://github.com/KaiNorberg/grf/blob/main/license">
+      <img src="https://img.shields.io/github/license/KaiNorberg/grf">
+    </a>
+    <br>
+</div>
+<br>
+
+The Grayscale Raster Font format is designed to bring easy to use and good-*ish* looking font rendering to hobbyist operating system developers or other environments where using modern font formats like .ttf is undesirable.
 
 ## Why does this exist?
 
-Modern font formats like .ttf are incredibly complicated and out of reach to most hobbyists without the use of some library like FreeType, which many might not want to use for the sake of making everything "from scratch" and even if thats not a concern porting FreeType is not a cakewalk. This leaves the easy option of using bitmap fonts, for example PC Screen Fonts (.psf), which are simply ugly and lack any form of antialiasing, kerning or even varying advance steps. The .grf format attempts to solve these issues by providing a easy to use middle ground between bitmap fonts and modern font formats.
+Modern font formats like .ttf are incredibly complex and out of reach for the majority of hobbyists without the use of a major library like FreeType. To many, this is not an option, either for the sake of making everything "from scratch" or simply because porting FreeType is infeasible due to its dependencies of, for example, a feature complete standard library, or simple due to its sheer scale.
+
+This leaves the easy option of using bitmap fonts, for example PC Screen Fonts (.psf), which are simply... ugly. They also lack any form of antialiasing, kerning or even varying advance steps. The .grf format attempts to solve these issues by providing an easy-to-use middle ground between bitmap fonts and modern font formats.
 
 ## What is it?
 
-A .grf file supports anti-ailiasing, kerning and other alignment variables, but it is rasterized meaning it stores raw pixel data instead of using curves to define its glyphs like modern fonts do. This allows us to skip the most complicated part of modern fonts, actually rasterizing it, this is not unusual as this is how basic bitmap fonts already work, however most bitmap fonts only use 1 bit to store their pixel data leading to highly pixelated output. GRF on the other hand use 1 full byte (8 bit grayscale) for each pixel where 0x00 means "fully transperant" and 0xFF means "fully solid". The .grf format also attempts to minimize the amount of postprocessing required after loading a font, with the goal of being as simple as possible balanced with the desire for good-*ish* looking fonts.
+A .grf file supports antialiasing and kerning[^1], two features identified as the largest contributors to a fonts visuals, but it is, as the name suggests, rasterized, meaning it stores raw pixel data. Think of it like this, a bitmap font uses one bit per pixel to form a basic image of each character, .grf on the other hand stores a full 8bbp image of each glyph where a value of `0x00` means fully transparent and `0xFF` means fully opaque, and per-glyph kerning data.
+
+This is in contrast to modern fonts which use complex vector graphics to define its glyphs, which allows for "infinitely smooth" glyphs, sub-pixel antialiasing, "dynamic" kerning and more. In practice, while these features can make a significant difference in overall font quality they are, at least in my humble opinion for hobbyist projects, exceptionally expensive, from a complexity standpoint, "nice to haves" that are unlikely to be noticed by most users.
+
+The .grf format also attempts to minimize the amount of post-processing required after loading a font, with the goal of being as easy to use as possible without sacrificing the good-*ish* visuals.
+
+[^1]: Kerning is a system for varying the gap between each glyph in text, which leads to more natural looking text.
 
 ## Limitations
 
-The Grayscale Raster font format is by no means "better" then a modern font. The biggest limitation is that each .grf file supports one and only one font size, this means you'll need to generate a separate .grf file for each desired font, size, and style (e.g., bold, italic) combination. It also only supports ASCII as Unicode support would result in massive file sizes, consider that we are using 1 byte per pixel for example a font size of 8x16 would result in 128 bytes per glyph for just the pixels, then consider that kerning data scales exponentially since kerning is done for each pair of glyphs, and you see how file sizes for Unicode with its thousands of glyphs would be unreasonable. Perhaps in the future a version of this format with file compression would be able to reasonably handle Unicode, but that would require testing. There are also some additional font rendering features that are unavailable, but it produces a rather convincing end result. So if you came here for sub-pixel perfect font rendering, then you are in the wrong place. But if pixel perfect is good enough, then you might be in the right place.
+It's important to remember the goal of this format. The Grayscale Raster font format is by no means "better" then a modern font, and it's not trying to be either, its meant to be more then good enough for hobbyists, opening doors to good-looking fonts that were previously closed entirely.
+
+The biggest limitation is that each .grf file supports one and only one font size, this means you'll need to generate a separate .grf file for each desired font, size, and style (e.g., bold, italic) combination. It also only supports ASCII as Unicode support would result in massive file sizes, consider that we are using 1 byte per pixel for example a font size of 8x16 would result in 128 bytes per glyph for just the pixels, then consider that kerning data scales exponentially since kerning is done for each pair of glyphs, and you see how file sizes for Unicode with its thousands of glyphs would be unreasonable. Perhaps in the future a version of this format with file compression would be able to reasonably handle Unicode, but at that point its not really "simple" anymore.
+
+There are also some additional font rendering features that are unavailable, but you can judge for yourself the quality of the produced output.
+
+In short, if you came here for sub-pixel perfect font rendering, then you are in the wrong place. But if pixel perfect is good enough, then you might just be in the right place.
 
 ## Tools
 
@@ -20,7 +52,7 @@ Below is a list of the currently available tools for .grf.
 
 ### font2grf
 
-Can be used to convert modern font formats to .grf, for example .ttf to .grf.
+Can be used to convert other font formats to .grf, for example .ttf to .grf.
 
 The tool can be used with the following steps.
 
@@ -33,11 +65,11 @@ Done!
 
 ## Screenshots
 
-![Desktop Screenshot from PatchworkOS](meta/screenshots/desktop.png)
+![Desktop Screenshot from grf](meta/screenshots/desktop.png)
 
 ## Implementations
 
-* [PatchworkOS](https://github.com/KaiNorberg/PatchworkOS) Hobbyist OS
+* [grf](https://github.com/KaiNorberg/grf) Hobbyist OS
 
 ## Format
 
@@ -94,11 +126,11 @@ This structure contains a list of kerning entries for a specific starting charac
 
 ## Advice for using this format
 
-If you are planning to use this font format I highly recommend using a font with good kerning, most modern font renderers do a lot of fancy stuff to improve the kerning of fonts and all that fancy stuff is basically impossible with this format so we have to solely rely on the kerning in the font itself, a example of a font with good kerning is [Lato](https://fonts.google.com/specimen/Lato).
+If you are planning to use this font format I highly recommend using a font with good kerning, most modern font renderers do a lot of fancy stuff to improve the kerning of fonts and all that fancy stuff is basically impossible with this format so we have to solely rely on the kerning in the font itself, an example of a font with good kerning is [Lato](https://fonts.google.com/specimen/Lato).
 
 ## Example in C
 
-The following is a example of how you could use this image format in C. Note the use of the [grf.h](grf.h) file.
+The following is an example of how you could use this image format in C. Note the use of the [grf.h](grf.h) file.
 
 ```c
 #include "grf.h"
