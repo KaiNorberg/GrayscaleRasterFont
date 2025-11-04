@@ -67,9 +67,10 @@ Done!
 
 ![Desktop Screenshot from grf](meta/screenshots/desktop.png)
 
-## Implementations
+## Projects
 
-* [PatchworkOS](https://github.com/KaiNorberg/PatchworkOS) A non-POSIX hobbyist OS, shown in the above screenshot
+* [PatchworkOS](https://github.com/KaiNorberg/PatchworkOS): A non-POSIX hobbyist OS, shown in the above screenshot
+* [TerracottaOS](https://github.com/Atlas-Software-Org/TerracottaOS): Terrakernel Project
 
 ## Format
 
