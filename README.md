@@ -52,16 +52,23 @@ Below is a list of the currently available tools for .grf.
 
 ### font2grf
 
-Can be used to convert other font formats to .grf, for example .ttf to .grf.
+Can be used to convert other font formats to .grf, for example .ttf.
 
-The tool can be used with the following steps.
+#### Building and using font2grf
 
-1. Clone (download) this repository, you can use the Code button at the top left of the screen, or if you have git installed use the following command `git clone --recursive https://github.com/KaiNorberg/grf`.
-2. Move into the grf/tools/font2grf directory.
-3. Run the `make` command.
-4. Use the generated `font2grf` executable following this example `./font2grf <input.ttf> <output.grf> [font_size]`
+```
+# Clone (download) this repository
+git clone https://github.com/KaiNorberg/GrayscaleRasterFont.git
 
-Done!
+# Move into the font2grf directory
+cd GrayscaleRasterFont/tools/font2grf
+
+# Build the font2grf tool
+make
+
+# Use the tool to convert a .ttf font to .grf
+./font2grf <input.ttf> <output.grf> [font_size]
+```
 
 ## Screenshots
 
